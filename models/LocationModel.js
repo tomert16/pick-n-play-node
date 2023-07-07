@@ -7,7 +7,7 @@ const sequelize = new Sequelize({
 });
 
 //create locations table
-module.exports = Location = sequelize.define('locations', {
+const Location = sequelize.define('locations', {
     city: DataTypes.STRING,
     state: DataTypes.STRING,
     

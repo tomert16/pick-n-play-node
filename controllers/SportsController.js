@@ -1,24 +1,22 @@
 const { promisify } = require('util');
-const { SportsModel } = require('../models/SportModel.js')
+const { Sport } = require('../models/SportModel.js')
 
 module.exports.getSports = async (req, res) => {
-    SportsModel.getAllSports((err, rows) => {
-        if (err) {
-            console.error(err);
-            return res.status(400).json({ msg: 'Error retrieving sports'});
-        } else {
-            return res.status(200).json(rows)
-        }
-    })
+   try {
+        const sports = await Sport.findAll();
+        return res.status(200).json(sports);
+   } catch (err) {
+        return res.status(400).json({ msg: 'Error retrieving sports'})
+   }
 };
 
 module.exports.getSportById = async (req, res) => {
-    const { id }  = req.params;
-    const getSportByIdPromise = promisify(SportsModel.getSportById)
-    const sport = await getSportByIdPromise(id);
-    if (!sport) {
-        return res.status(404).json({ msg: 'Sport not found' });
-    } else {
+    try{
+        const { id }  = req.params;
+        const sport = await Sport.findOne({where: {id: id}})
         return res.status(200).json(sport);
+    } catch (err) {
+        return res.status(404).json({ msg: 'Sport not found' });
+
     }
 }
