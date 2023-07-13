@@ -10,11 +10,11 @@ module.exports.getAllLocations = async (req, res) => {
 }
 
 module.exports.getLocationById = async (req, res) => {
+    const { id } = req.params;
     try {
-        const { id } = req.params;
         const location = await Location.findOne({where: {id: id}});
         return res.status(200).json(location)
     } catch (err) {
-        return res.status(400).json({ msg: 'Could not find location'})
+        return res.status(400).json({ msg: 'Could not find location', err})
     }
 }

@@ -11,8 +11,8 @@ module.exports.getSports = async (req, res) => {
 };
 
 module.exports.getSportById = async (req, res) => {
+    const { id }  = req.params;
     try{
-        const { id }  = req.params;
         const sport = await Sport.findOne({where: {id: id}})
         return res.status(200).json(sport);
     } catch (err) {

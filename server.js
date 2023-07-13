@@ -4,6 +4,7 @@ const cors = require('cors');
 const app = express();
 const sportsRoutes = require('./routes/SportsRoutes');
 const locationsRoutes = require('./routes/LocationsRoutes');
+const fieldsRoutes = require('./routes/FieldsRoutes');
 
 const PORT = process.env.PORT || 3000;
 
@@ -20,6 +21,7 @@ app.use(cors());
 //routes
 app.use('/sports', sportsRoutes);
 app.use('/locations', locationsRoutes);
+app.use('/fields', fieldsRoutes)
 
 
 //start server
